@@ -24,7 +24,7 @@ Latihan Project Hello World
 	- Tidak terjadi compile error
 	Jika tidak, Stop Spring Boot yang sedang berjalan, run kembali dan buka localhost:
 	8080/hello apakah page hello sebelumnya masih muncul?
-	- Masih muncul. Karena, mengganti nama method tidak mempengaruhi return statement
+	- Masih muncul. Karena mengganti nama method tidak mempengaruhi return statement
 	
 	Kembalikan nama method menjadi index()
 
@@ -42,6 +42,7 @@ Latihan Project Hello World
 	  There was an unexpected error (type=Internal Server Error, status=500).
 	  Error resolving template "hello123", template might not exist or might not be
 	  accessible by any of the configured Template Resolvers
+	- Error ini terjadi karena return type yang diganti tidak ada
 	
 	Kembalikan return type menjadi “hello”
 	
