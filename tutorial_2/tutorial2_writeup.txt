@@ -1,0 +1,132 @@
+Latihan Project Hello World
+1.	Ganti baris tersebut menjadi @RequestMapping("/hello123")
+	Pertanyaan:
+	Apakah compile error?
+	- Tidak terjadi compile error
+	Jika tidak, stop Spring Boot yang sedang berjalan, run kembali dan buka localhost:
+	8080/hello apa yang terjadi?
+	- Terjadi error :
+	  Whitelabel Error Page
+	  This application has no explicit mapping for /error, so you are seeing this as
+	  a fallback.
+	  Thu Sep 14 21:08:51 ICT 2017
+	  There was an unexpected error (type=Not Found, status=404).
+	  No message available
+	- Error ini terjadi karena requestmapping diganti menjadi /hello123, sedangkan
+	  dalam mengaksesnya masih dengan localhost:8080/hello, bukan
+	  localhost:8080/hello123
+	
+	Kembalikan RequestMapping menjadi /hello
+
+2. 	Ganti nama method index() dengan nama method hello()
+	Pertanyaan:
+	Apakah compile error?
+	- Tidak terjadi compile error
+	Jika tidak, Stop Spring Boot yang sedang berjalan, run kembali dan buka localhost:
+	8080/hello apakah page hello sebelumnya masih muncul?
+	- Masih muncul. Karena, mengganti nama method tidak mempengaruhi return statement
+	
+	Kembalikan nama method menjadi index()
+
+3. 	Ganti string return type menjadi return "hello123";
+	Pertanyaan:
+	Apakah compile error?
+	- Tidak terjadi compile error
+	Jika tidak, Stop Spring Boot yang sedang berjalan, run kembali dan buka localhost:
+	8080/hello apakah page hello sebelumnya masih muncul?
+	- Tidak muncul, terjadi error :
+	  Whitelabel Error Page
+	  This application has no explicit mapping for /error, so you are seeing this as
+	  a fallback.
+	  Thu Sep 14 21:17:56 ICT 2017
+	  There was an unexpected error (type=Internal Server Error, status=500).
+	  Error resolving template "hello123", template might not exist or might not be
+	  accessible by any of the configured Template Resolvers
+	
+	Kembalikan return type menjadi “hello”
+	
+	Pertanyaan:
+	Menandakan apakah String yang di-return tersebut?
+	- Return tersebut menandakan jika file yang di-return adalah halaman hello.html
+	
+
+1. 	Ubah nilai anotasi RequestMapping dari "/greeting" menjadi "/hello/greeting"
+	Buka localhost:8080/hello/greeting?name=chanek
+	Pertanyaan: apakah hasilnya?
+	- Akan menghasilkan "Selamat datang chanek!"
+	- Karena, requestmapping telah diganti menjadi "/hello/greeting", maka tidak akan
+	  terjadi error
+	
+	Kembalikan request map menjadi @RequestMapping("/greeting")
+
+2. 	Akses localhost:8080/greeting
+	Pertanyaan: Apakah hasilnya?
+	- Terjadi error :
+	  Whitelabel Error Page
+	  This application has no explicit mapping for /error, so you are seeing this as
+	  a fallback.
+	  Thu Sep 14 21:25:48 ICT 2017
+	  There was an unexpected error (type=Bad Request, status=400).
+	  Required String parameter 'name' is not present
+	- Error ini terjadi karena parameter 'name' yang diminta tidak dituliskan dalam
+	  url localhost:8080/greeting?name=chanek
+	
+	Ubah header method greeting menjadi seperti berikut
+	
+	public String greeting ( @RequestParam ( value = "name" , required = false )
+		String name , Model model)
+	
+	Stop Spring Boot yang sedang berjalan, run kembali, buka localhost: 8080/greeting
+	Pertanyaan: Apakah hasilnya?
+	- Akan menghasilkan "Selamat datang null!"
+	- Karena telah ditambahkan required = false, sehingga walaupun tidak dituliskan name
+	  dalam url tersebut, akan tetap muncul namun mengembalikan nilai null
+	  
+3. 	Ubah header method greeting menjadi seperti berikut
+	
+	public String greeting ( @RequestParam ( value = "name" , required = false ,
+	defaultValue = "dunia" ) String name , Model model)
+	
+	Stop Spring Boot yang sedang berjalan, run kembali, dan buka localhost:
+	8080/greeting.
+	Pertanyaan: apakah hasilnya?
+	- Akan menghasilkan "Selamat datang dunia!"
+	- Karena, terdapat defaultValue = "dunia" pada requestparam
+
+4. 	Perhatikan bahwa pada berkas greeting.html, tag paragraf yang kita tambahkan adalah
+	sebagai berikut:
+	<p th:text = "'Selamat datang ' + ${name} + '!'" > Sapaan untuk user </p>
+	Pertanyaan: Mengapa tulisan “Sapaan untuk user” tidak pernah muncul?
+	- Karena terdapat tag thymeleaf th:text yang menggantikan tag paragraf html tersebut
+	
+Latihan Path Variable:
+1. 	Akses localhost:8080/greeting/
+	Pertanyaan: Apa hasilnya?
+	- Akan menghasilkan "Selamat datang dunia!"
+	- Karena, sudah ada defaultValue yaitu dunia, maka akan menghasilkan nilai dunia
+	
+	Ubah method greetingPath menjadi seperti berikut
+	@RequestMapping ( value = { "/greeting" , "greeting/{name}" })
+	public String greetingPath ( @PathVariable Optional < String > name , Model model ) {
+		if ( name . isPresent ()) {
+			model . addAttribute ( "name" , name . get ());
+		} else {
+			model . addAttribute ( "name" , "dengklek" );
+		}
+		return "greeting";
+	}
+
+	Akses localhost:8080/greeting/
+	Pertanyaan: Apa hasilnya?
+	- Akan menghasilkan "Selamat datang dengklek!"
+	- Pada requestmapping, diberikan 2 path yaitu yang tidak memiliki nilai dan yang
+	  memiliki nilai 
+	- Karena di url tidak memberikan nilai yang bisa ditangkap variable name, maka akan
+	  memberikan defaultValue yang sudah distate dalam code tersebut
+	  
+	Akses localhost:8080/greeting/chanek
+	Pertanyaan: Apa hasilnya?
+	- Akan menghasilkan "Selamat datang chanek!"
+	- Pada requestmapping, diberikan 2 path yaitu yang tidak memiliki nilai dan yang
+	  memiliki nilai
+	- Karena, di url sudah memberikan nilai yang akan ditangkap oleh variable name
