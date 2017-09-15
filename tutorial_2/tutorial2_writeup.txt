@@ -129,4 +129,4 @@ Latihan Path Variable:
 	- Akan menghasilkan "Selamat datang chanek!"
 	- Pada requestmapping, diberikan 2 path yaitu yang tidak memiliki nilai dan yang
 	  memiliki nilai
-	- Karena, di url sudah memberikan nilai yang akan ditangkap oleh variable name
+	- Karena di url sudah memberikan nilai yang akan ditangkap oleh variable name, maka tidak terjadi eror
