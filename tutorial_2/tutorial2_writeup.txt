@@ -13,7 +13,7 @@ Latihan Project Hello World
 	  There was an unexpected error (type=Not Found, status=404).
 	  No message available
 	- Error ini terjadi karena requestmapping diganti menjadi /hello123, sedangkan
-	  dalam mengaksesnya masih dengan localhost:8080/hello, bukan
+	  dalam mengakses url-nya masih dengan localhost:8080/hello, bukan
 	  localhost:8080/hello123
 	
 	Kembalikan RequestMapping menjadi /hello
